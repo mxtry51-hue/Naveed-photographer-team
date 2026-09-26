@@ -1,0 +1,8 @@
+{
+  "name": "hafiz-wedding-scheduler",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hafiz Wedding Equipment shared mobile event scheduler",
+  "scripts": {"start":"node server.js"},
+  "dependencies": {"better-sqlite3":"^11.7.0","express":"^4.21.2","express-session":"^1.18.1"}
+}
