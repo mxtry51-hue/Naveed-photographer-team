@@ -1,130 +1,1027 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Naveed Wedding Photographer Team - Wedding Scheduler</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>Naveed Wedding Photographer Team</title>
 
-  <style>
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:Arial,sans-serif;
-      background:#f4f6f9;
-      color:#222
-    }
-    .container{
-      max-width:1100px;
-      margin:auto;
-      padding:20px
-    }
-    .header{
-      background:#111827;
-      color:white;
-      padding:18px 20px;
-      border-radius:14px;
-      margin-bottom:20px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px
-    }
-    .header h1{margin:0;font-size:22px}
-    button{
-      border:0;
-      border-radius:8px;
-      padding:10px 16px;
-      cursor:pointer;
-      font-weight:bold
-    }
-    .logout{background:#dc2626;color:white}
-    .card{
-      background:white;
-      border-radius:14px;
-      padding:20px;
-      margin-bottom:20px;
-      box-shadow:0 2px 10px #00000012
-    }
-    .login{
-      max-width:420px;
-      margin:70px auto
-    }
-    input,select,textarea{
-      width:100%;
-      padding:12px;
-      margin:7px 0 12px;
-      border:1px solid #ddd;
-      border-radius:8px;
-      font-size:15px
-    }
-    textarea{min-height:90px}
-    .primary{
-      background:#111827;
-      color:white;
-      width:100%
-    }
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:12px
-    }
-    .stat{
-      padding:18px;
-      border-radius:12px;
-      background:#f1f5f9;
-      text-align:center
-    }
-    .stat strong{
-      display:block;
-      font-size:25px;
-      margin-top:5px
-    }
-    .filters{
-      display:grid;
-      grid-template-columns:2fr 1fr;
-      gap:10px
-    }
-    .event{
-      border:1px solid #e5e7eb;
-      border-radius:12px;
-      padding:15px;
-      margin-top:12px
-    }
-    .event h3{margin:0 0 8px}
-    .event p{margin:6px 0}
-    .actions{margin-top:12px;display:flex;gap:8px}
-    .edit{background:#2563eb;color:white}
-    .delete{background:#dc2626;color:white}
-    .hidden{display:none!important}
-    .msg{
-      padding:10px;
-      border-radius:8px;
-      margin-bottom:10px;
-      background:#fee2e2;
-      color:#991b1b
-    }
-    @media(max-width:700px){
-      .grid{grid-template-columns:repeat(2,1fr)}
-      .filters{grid-template-columns:1fr}
-      .header{align-items:flex-start;flex-direction:column}
-    }
-  </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f6f9;
+  color:#222;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+}
+
+.card{
+  background:white;
+  border-radius:14px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 2px 10px #0001;
+}
+
+.login{
+  max-width:420px;
+  margin:70px auto;
+}
+
+h1,h2,h3{
+  margin-top:0;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:12px;
+  margin:7px 0 12px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font-size:15px;
+}
+
+textarea{
+  min-height:90px;
+}
+
+button{
+  border:0;
+  border-radius:8px;
+  padding:11px 16px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.primary{
+  background:#111827;
+  color:white;
+  width:100%;
+}
+
+.header{
+  background:#111827;
+  color:white;
+  padding:18px;
+  border-radius:14px;
+  margin-bottom:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logout{
+  background:#dc2626;
+  color:white;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.stat{
+  background:white;
+  border-radius:12px;
+  padding:18px;
+  text-align:center;
+  box-shadow:0 2px 8px #0001;
+}
+
+.stat strong{
+  display:block;
+  font-size:26px;
+  margin-top:6px;
+}
+
+.filters{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:10px;
+}
+
+.event{
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:15px;
+  margin-top:12px;
+}
+
+.event p{
+  margin:7px 0;
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+}
+
+.edit{
+  background:#2563eb;
+  color:white;
+}
+
+.delete{
+  background:#dc2626;
+  color:white;
+}
+
+.msg{
+  padding:10px;
+  border-radius:8px;
+  margin-bottom:10px;
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.success{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.hidden{
+  display:none!important;
+}
+
+.empty{
+  text-align:center;
+  padding:25px;
+  color:#666;
+}
+
+@media(max-width:700px){
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .filters{
+    grid-template-columns:1fr;
+  }
+
+  .header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:12px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
 <div id="loginPage" class="container">
+
   <div class="card login">
+
     <h2>Wedding Scheduler</h2>
+
     <p>Naveed Wedding Photographer Team</p>
 
     <div id="loginMsg" class="msg hidden"></div>
 
     <label>Email</label>
-    <input id="email" type="email" placeholder="Admin email">
+
+    <input
+      id="email"
+      type="email"
+      placeholder="Admin email"
+    >
 
     <label>Password</label>
-    <input id="password" type="password" placeholder="Password">
+
+    <input
+      id="password"
+      type="password"
+      placeholder="Password"
+    >
+
+    <button id="loginBtn" class="primary">
+      Login
+    </button>
+
+  </div>
+
+</div>
+
+
+<div id="appPage" class="container hidden">
+
+  <div class="header">
+
+    <div>
+      <h1>Naveed Wedding Photographer Team</h1>
+      <div>Wedding Scheduler</div>
+    </div>
+
+    <button id="logoutBtn" class="logout">
+      Logout
+    </button>
+
+  </div>
+
+
+  <div class="grid">
+
+    <div class="stat">
+      Total Events
+      <strong id="totalEvents">0</strong>
+    </div>
+
+    <div class="stat">
+      Today
+      <strong id="todayEvents">0</strong>
+    </div>
+
+    <div class="stat">
+      This Month
+      <strong id="monthEvents">0</strong>
+    </div>
+
+    <div class="stat">
+      Upcoming
+      <strong id="upcomingEvents">0</strong>
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2 id="formTitle">Add Wedding Event</h2>
+
+    <div id="eventMsg" class="msg hidden"></div>
+
+    <label>Client Name</label>
+
+    <input
+      id="clientName"
+      type="text"
+      placeholder="Client name"
+    >
+
+    <label>Client Number</label>
+
+    <input
+      id="phone"
+      type="tel"
+      placeholder="Client phone number"
+    >
+
+    <label>Wedding Date</label>
+
+    <input
+      id="eventDate"
+      type="date"
+    >
+
+    <label>Event Time</label>
+
+    <input
+      id="eventTime"
+      type="time"
+    >
+
+    <label>Event Type</label>
+
+    <select id="eventType">
+      <option value="">Select event type</option>
+      <option value="Wedding">Wedding</option>
+      <option value="Mehndi">Mehndi</option>
+      <option value="Barat">Barat</option>
+      <option value="Walima">Walima</option>
+      <option value="Engagement">Engagement</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <label>Venue</label>
+
+    <input
+      id="venue"
+      type="text"
+      placeholder="Venue / Hall"
+    >
+
+    <label>Team</label>
+
+    <input
+      id="team"
+      type="text"
+      placeholder="Photography team"
+    >
+
+    <label>Notes</label>
+
+    <textarea
+      id="notes"
+      placeholder="Additional notes"
+    ></textarea>
+
+    <button id="saveBtn" class="primary">
+      Save Event
+    </button>
+
+    <button
+      id="cancelBtn"
+      class="hidden"
+      style="width:100%;margin-top:8px"
+    >
+      Cancel
+    </button>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>Wedding Events</h2>
+
+    <div class="filters">
+
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="Search client, venue, phone..."
+      >
+
+      <input
+        id="filterDate"
+        type="date"
+      >
+
+    </div>
+
+    <div id="eventsList">
+      <div class="empty">
+        Loading...
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<script>
+
+let supabaseClient;
+let currentUser = null;
+let allEvents = [];
+let editingId = null;
+
+
+/* SUPABASE */
+function setupSupabase(){
+
+  if(
+    typeof SUPABASE_URL === "undefined" ||
+    typeof SUPABASE_ANON_KEY === "undefined"
+  ){
+    showLoginMessage("supabase-config.js nahi mil rahi.");
+    return false;
+  }
+
+  supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+
+  return true;
+}
+
+
+/* LOGIN MESSAGE */
+function showLoginMessage(message){
+
+  const box = document.getElementById("loginMsg");
+
+  box.textContent = message;
+  box.classList.remove("hidden");
+}
+
+
+/* EVENT MESSAGE */
+function showEventMessage(message,success=false){
+
+  const box = document.getElementById("eventMsg");
+
+  box.textContent = message;
+  box.classList.remove("hidden");
+
+  if(success){
+    box.classList.add("success");
+  }else{
+    box.classList.remove("success");
+  }
+}
+
+
+/* LOGIN */
+async function login(){
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  if(!email || !password){
+    showLoginMessage("Email aur password enter karein.");
+    return;
+  }
+
+  const btn =
+    document.getElementById("loginBtn");
+
+  btn.disabled = true;
+  btn.textContent = "Logging in...";
+
+  const {data,error} =
+    await supabaseClient.auth.signInWithPassword({
+      email:email,
+      password:password
+    });
+
+  btn.disabled = false;
+  btn.textContent = "Login";
+
+  if(error){
+    showLoginMessage(error.message);
+    return;
+  }
+
+  currentUser = data.user;
+
+  showApp();
+
+  await loadEvents();
+}
+
+
+/* LOGOUT */
+async function logout(){
+
+  await supabaseClient.auth.signOut();
+
+  currentUser = null;
+
+  document
+    .getElementById("appPage")
+    .classList.add("hidden");
+
+  document
+    .getElementById("loginPage")
+    .classList.remove("hidden");
+
+}
+
+
+/* SHOW APP */
+function showApp(){
+
+  document
+    .getElementById("loginPage")
+    .classList.add("hidden");
+
+  document
+    .getElementById("appPage")
+    .classList.remove("hidden");
+
+}
+
+
+/* LOAD EVENTS */
+async function loadEvents(){
+
+  if(!currentUser) return;
+
+  const {data,error} =
+    await supabaseClient
+      .from("weddings")
+      .select("*")
+      .eq("user_id",currentUser.id)
+      .order("event_date",{ascending:true});
+
+  if(error){
+
+    document.getElementById("eventsList").innerHTML =
+      '<div class="msg">' +
+      escapeHtml(error.message) +
+      '</div>';
+
+    return;
+  }
+
+  allEvents = data || [];
+
+  renderEvents();
+  updateStats();
+}
+
+
+/* DISPLAY EVENTS */
+function renderEvents(){
+
+  const list =
+    document.getElementById("eventsList");
+
+  const search =
+    document
+      .getElementById("searchInput")
+      .value
+      .toLowerCase()
+      .trim();
+
+  const filterDate =
+    document.getElementById("filterDate").value;
+
+
+  const filtered =
+    allEvents.filter(event=>{
+
+      const text = [
+
+        event.client_name,
+        event.phone,
+        event.venue,
+        event.team,
+        event.notes,
+        event.event_type
+
+      ]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
+
+
+      const searchMatch =
+        !search || text.includes(search);
+
+
+      const dateMatch =
+        !filterDate ||
+        event.event_date === filterDate;
+
+
+      return searchMatch && dateMatch;
+
+    });
+
+
+  if(filtered.length === 0){
+
+    list.innerHTML =
+      '<div class="empty">Koi wedding event nahi mila.</div>';
+
+    return;
+  }
+
+
+  list.innerHTML =
+    filtered.map(event=>{
+
+      return `
+
+        <div class="event">
+
+          <h3>
+            ${escapeHtml(
+              event.client_name || "No Client Name"
+            )}
+          </h3>
+
+          <p>
+            📅 <b>Date:</b>
+            ${escapeHtml(event.event_date || "-")}
+          </p>
+
+          <p>
+            🕐 <b>Time:</b>
+            ${escapeHtml(event.event_time || "-")}
+          </p>
+
+          <p>
+            🎉 <b>Event:</b>
+            ${escapeHtml(event.event_type || "-")}
+          </p>
+
+          <p>
+            📍 <b>Venue:</b>
+            ${escapeHtml(event.venue || "-")}
+          </p>
+
+          <p>
+            📞 <b>Phone:</b>
+            ${escapeHtml(event.phone || "-")}
+          </p>
+
+          <p>
+            👥 <b>Team:</b>
+            ${escapeHtml(event.team || "-")}
+          </p>
+
+          <p>
+            📝 <b>Notes:</b>
+            ${escapeHtml(event.notes || "-")}
+          </p>
+
+          <div class="actions">
+
+            <button
+              class="edit"
+              onclick="editEvent('${event.id}')"
+            >
+              Edit
+            </button>
+
+            <button
+              class="delete"
+              onclick="deleteEvent('${event.id}')"
+            >
+              Delete
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+}
+
+
+/* STATS */
+function updateStats(){
+
+  const today =
+    new Date().toISOString().split("T")[0];
+
+  const now =
+    new Date();
+
+  const month =
+    now.getMonth();
+
+  const year =
+    now.getFullYear();
+
+
+  const todayCount =
+    allEvents.filter(
+      e => e.event_date === today
+    ).length;
+
+
+  const monthCount =
+    allEvents.filter(e=>{
+
+      if(!e.event_date) return false;
+
+      const d =
+        new Date(e.event_date + "T00:00:00");
+
+      return(
+        d.getMonth() === month &&
+        d.getFullYear() === year
+      );
+
+    }).length;
+
+
+  const upcomingCount =
+    allEvents.filter(
+      e =>
+        e.event_date &&
+        e.event_date >= today
+    ).length;
+
+
+  document.getElementById("totalEvents").textContent =
+    allEvents.length;
+
+  document.getElementById("todayEvents").textContent =
+    todayCount;
+
+  document.getElementById("monthEvents").textContent =
+    monthCount;
+
+  document.getElementById("upcomingEvents").textContent =
+    upcomingCount;
+}
+
+
+/* SAVE EVENT */
+async function saveEvent(){
+
+  if(!currentUser) return;
+
+
+  const payload = {
+
+    client_name:
+      document.getElementById("clientName").value.trim(),
+
+    phone:
+      document.getElementById("phone").value.trim(),
+
+    event_date:
+      document.getElementById("eventDate").value,
+
+    event_time:
+      document.getElementById("eventTime").value || null,
+
+    event_type:
+      document.getElementById("eventType").value || null,
+
+    venue:
+      document.getElementById("venue").value.trim(),
+
+    team:
+      document.getElementById("team").value.trim(),
+
+    notes:
+      document.getElementById("notes").value.trim(),
+
+    user_id:
+      currentUser.id
+
+  };
+
+
+  if(!payload.client_name || !payload.event_date){
+
+    showEventMessage(
+      "Client Name aur Wedding Date zaroor enter karein."
+    );
+
+    return;
+  }
+
+
+  const btn =
+    document.getElementById("saveBtn");
+
+  btn.disabled = true;
+  btn.textContent =
+    editingId ? "Updating..." : "Saving...";
+
+
+  let result;
+
+
+  if(editingId){
+
+    result =
+      await supabaseClient
+        .from("weddings")
+        .update(payload)
+        .eq("id",editingId)
+        .eq("user_id",currentUser.id);
+
+  }else{
+
+    result =
+      await supabaseClient
+        .from("weddings")
+        .insert([payload]);
+
+  }
+
+
+  btn.disabled = false;
+  btn.textContent =
+    editingId ? "Update Event" : "Save Event";
+
+
+  if(result.error){
+
+    showEventMessage(
+      result.error.message
+    );
+
+    return;
+  }
+
+
+  showEventMessage(
+    editingId
+      ? "Event update ho gaya."
+      : "Wedding event save ho gaya.",
+    true
+  );
+
+
+  clearForm();
+
+  await loadEvents();
+}
+
+
+/* EDIT EVENT */
+function editEvent(id){
+
+  const event =
+    allEvents.find(
+      e => String(e.id) === String(id)
+    );
+
+  if(!event) return;
+
+
+  editingId = id;
+
+
+  document.getElementById("clientName").value =
+    event.client_name || "";
+
+  document.getElementById("phone").value =
+    event.phone || "";
+
+  document.getElementById("eventDate").value =
+    event.event_date || "";
+
+  document.getElementById("eventTime").value =
+    event.event_time || "";
+
+  document.getElementById("eventType").value =
+    event.event_type || "";
+
+  document.getElementById("venue").value =
+    event.venue || "";
+
+  document.getElementById("team").value =
+    event.team || "";
+
+  document.getElementById("notes").value =
+    event.notes || "";
+
+
+  document.getElementById("formTitle").textContent =
+    "Edit Wedding Event";
+
+  document.getElementById("saveBtn").textContent =
+    "Update Event";
+
+  document
+    .getElementById("cancelBtn")
+    .classList.remove("hidden");
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+/* DELETE EVENT */
+async function deleteEvent(id){
+
+  if(!currentUser) return;
+
+
+  if(!confirm(
+    "Kya aap ye wedding event delete karna chahte hain?"
+  )){
+    return;
+  }
+
+
+  const {error} =
+    await supabaseClient
+      .from("weddings")
+      .delete()
+      .eq("id",id)
+      .eq("user_id",currentUser.id);
+
+
+  if(error){
+
+    showEventMessage(
+      error.message
+    );
+
+    return;
+  }
+
+
+  await loadEvents();
+}
+
+
+/* CLEAR FORM */
+function clearForm(){
+
+  editingId = null;
+
+  document.getElementById("clientName").value = "";
+  document.getElementById("phone").value = "";
+  document.getElementById("eventDate").value = "";
+  document.getElementById("eventTime").value = "";
+  document.getElementById("eventType").value = "";
+  document.getElementById("venue").value = "";
+  document.getElementById("team").value = "";
+  document.getElementById("notes").value = "";
+
+  document.getElementById("formTitle").textContent =
+    "Add Wedding Event";
+
+  document.getElementById("saveBtn").textContent =
+    "Save Event";
+
+  document
+    .getElementById("cancelBtn")
+    .classList.add("hidden");
+}
+
+
+/* SECURITY */
+function escapeHtml(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+/* BUTTONS */
+document
+  .getElementById("loginBtn")
+  .addEventListener("click",login);
+
+document
+  .getElementById("logoutBtn")
+  .addEventListener("click",logout);
+
+document
+  .getElementById("saveBtn")
+  .addEventListener("click",saveEvent);
+
+document
+  .getElementById("cancelBtn")
+  .addEventListener("click",clearForm);
+
+document
+  .getElementById("searchInput")
+  .addEventListener("input",renderEvents);
+
+document
+  .getElementById("filterDate")
+  .addEventListener("change",renderEvents);
+
+
+/* ENTER LOGIN */
+document
+  .getElementById("password")
+  .addEventListener("keydown",function(e){
+
+    if(e.key === "Enter"){
+      login();
+    }
+
+  });
+
+
+/* START APP */
+(async function(){
+
+  if(!setupSupabase()){
+    return;
+  }
+
+
+  const {data} =
+    await supabaseClient.auth.getSession();
+
+
+  if(data && data.session){
+
+    currentUser =
+      data.session.user;
+
+    showApp();
+
+    await loadEvents();
+
+  }
+
+})();
+
+</script>
+
+</body>
+</html>
