@@ -1,4 +1,4 @@
-# Hafiz Wedding Equipment — Shared Wedding Scheduler
+# Naveed Photographer Team — Shared Wedding Scheduler
 
 یہ Excel نہیں ہے۔ یہ ایک single-page, mobile-friendly web app ہے جس میں SQLite database استعمال ہوتا ہے۔
 
