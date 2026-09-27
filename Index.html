@@ -271,22 +271,30 @@ $('login').classList.remove('hidden');
 $('app').classList.add('hidden');
 }
 
-async function boot(){
+async function login(){
 
-try{
+  try{
 
-const m=await api('/api/me');
+    const { error } = await supabaseClient.auth.signInWithPassword({
+      email: $('username').value,
+      password: $('password').value
+    });
 
-if(m.user){
+    if(error) throw error;
 
-$('login').classList.add('hidden');
-$('app').classList.remove('hidden');
+    $('login').classList.add('hidden');
+    $('app').classList.remove('hidden');
 
-load();
-stats();
+    load();
+    stats();
+
+  }catch(e){
+
+    $('loginErr').textContent = e.message;
+
+  }
 
 }
-
 }catch{}
 
 }
