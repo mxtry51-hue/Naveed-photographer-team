@@ -1,2 +1,2 @@
-const SUPABASE_URL = "https://nphzfbdtejvvuctydhof.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_HMcmA96cZ3Huk7RsGkbKfg_Aolv6e8Y";
+const SUPABASE_URL = "https://mxtry51-hue.github.io/Naveed-photographer-team/";
+const SUPABASE_ANON_KEY = "https://mxtry51-hue.github.io/Naveed-photographer-team/";
